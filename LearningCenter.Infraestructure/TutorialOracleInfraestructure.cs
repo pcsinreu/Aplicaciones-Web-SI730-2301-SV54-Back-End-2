@@ -3,9 +3,17 @@ using LearningCenter.Infraestructure.Models;
 
 namespace LearningCenter.Infraestructure;
 
+
 public class TutorialOracleInfraestructure: ITutorialInfraestructure
 {
-    public List<string> GetAll()
+    private LearningCenterDBContext _learningCenterDbContext;
+
+    public TutorialOracleInfraestructure(LearningCenterDBContext learningCenterDbContext)
+    {
+        _learningCenterDbContext = learningCenterDbContext;
+    }
+    
+    public List<Tutorial> GetAll()
     {
         //Conecta BBDD
         List<string> list = new List<string>();
@@ -15,32 +23,56 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
         //LearningCenterDBContext;
         //SecurityDB;
 
+        return _learningCenterDbContext.Tutorials.ToList();
 
-        LearningCenterDBContext learningCenterDbContext = new LearningCenterDBContext();
-        learningCenterDbContext.Tutorials.Add(new Tutorial()
+    }
+
+    public bool Create(string name)
+    {
+        try
         {
-            Name = "Test1"
-        });
-        
-        learningCenterDbContext.Tutorials.Update(new Tutorial()
+            Tutorial tutorial = new Tutorial();
+            tutorial.Name = name;
+
+            _learningCenterDbContext.Tutorials.Add(tutorial);
+            _learningCenterDbContext.SaveChanges();
+            return true;
+        }
+        catch (Exception exception)
         {
-            Id = 1,
-            Name = "Test1"
-        });
+            return false;
+        }
+    }
 
-
-        learningCenterDbContext.Tutorials.Remove(new Tutorial()
+    public bool Update(int id, string name)
+    {
+        try
         {
-            Id = 1,
-            Name = "Test1"
-        });
+            var tutorial = _learningCenterDbContext.Tutorials.Find(id); //obtengo
+
+            tutorial.Name = name; //Modifico
+
+            _learningCenterDbContext.Tutorials.Update(tutorial); //modifco
 
 
-        learningCenterDbContext.Categories.ToList();
+            _learningCenterDbContext.SaveChanges();
 
-        learningCenterDbContext.SaveChanges();
+            return true;
+        }
+        catch (Exception exception)
+        {
+            return false;
+        }
 
-        return list;
+    }
 
+    public bool Delete(int id)
+    {
+        var tutorial = _learningCenterDbContext.Tutorials.Find(id); //obtengo
+
+        _learningCenterDbContext.Tutorials.Remove(tutorial);
+        _learningCenterDbContext.SaveChanges();
+
+        return true;
     }
 }

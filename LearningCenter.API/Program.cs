@@ -1,3 +1,4 @@
+using LearningCenter.Domain;
 using LearningCenter.Infraestructure;
 using LearningCenter.Infraestructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //dependecy inyection
-builder.Services.AddScoped<ITutorialInfraestructure, TutorialSQLInfraestructure>();
+builder.Services.AddScoped<ITutorialInfraestructure, TutorialOracleInfraestructure>();
+builder.Services.AddScoped<ITutorialDomain, TutorialDomain>();
 
 //Conexion a MySQL 
 var connectionString = builder.Configuration.GetConnectionString("learningCenterConnection");

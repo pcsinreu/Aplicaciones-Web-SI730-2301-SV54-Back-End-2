@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearningCenter.Domain;
 using LearningCenter.Infraestructure;
+using LearningCenter.Infraestructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,16 +16,19 @@ namespace LearningCenter.API.Controllers
     {
         //Inyeccion
         private ITutorialInfraestructure _tutorialInfraestructura;
+        private ITutorialDomain _tutorialDomain;
 
-        public TutorialController(ITutorialInfraestructure tutorialInfraestructura)
+        public TutorialController(ITutorialInfraestructure tutorialInfraestructura, ITutorialDomain tutorialDomain)
         {
             _tutorialInfraestructura = tutorialInfraestructura;
+            _tutorialDomain = tutorialDomain;
         }
+        
         
         
         // GET: api/Tutorial
         [HttpGet]
-        public List<string> Get()
+        public List<Tutorial> Get()
         {
             //TutorialOracleInfraestructure tutorialOracleInfraestructure = new TutorialOracleInfraestructure();
             //return tutorialOracleInfraestructure.GetAll();
@@ -45,18 +50,21 @@ namespace LearningCenter.API.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            _tutorialDomain.Create(value);
         }
 
         // PUT: api/Tutorial/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+            _tutorialDomain.Update(id, value);
         }
 
         // DELETE: api/Tutorial/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _tutorialDomain.Delete(id);
         }
     }
 }
