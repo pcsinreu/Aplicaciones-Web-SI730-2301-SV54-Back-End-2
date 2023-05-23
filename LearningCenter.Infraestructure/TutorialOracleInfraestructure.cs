@@ -33,6 +33,7 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
         {
             Tutorial tutorial = new Tutorial();
             tutorial.Name = name;
+            tutorial.IsActive = true;
 
             _learningCenterDbContext.Tutorials.Add(tutorial);
             _learningCenterDbContext.SaveChanges();
@@ -68,9 +69,16 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
 
     public bool Delete(int id)
     {
+
+        //_learningCenterDbContext.Tutorials.Remove(tutorial);
+        
+        
         var tutorial = _learningCenterDbContext.Tutorials.Find(id); //obtengo
 
-        _learningCenterDbContext.Tutorials.Remove(tutorial);
+        tutorial.IsActive = false; //Modifico
+
+        _learningCenterDbContext.Tutorials.Update(tutorial); //modifco
+        
         _learningCenterDbContext.SaveChanges();
 
         return true;
