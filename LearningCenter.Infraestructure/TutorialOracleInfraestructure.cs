@@ -23,17 +23,28 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
         //LearningCenterDBContext;
         //SecurityDB;
 
-        return _learningCenterDbContext.Tutorials.ToList();
+        return _learningCenterDbContext.Tutorials.Where(tutorial => tutorial.IsActive).ToList();
 
     }
 
-    public bool Create(string name)
+    public List<Tutorial> GetByName(string name)
+    {
+        //return _learningCenterDbContext.Tutorials.Where(tutorial => tutorial.IsActive && tutorial.Name == name).ToList(); //Nombre exacto
+        return _learningCenterDbContext.Tutorials.Where(tutorial => tutorial.IsActive && tutorial.Name.Contains(name)).ToList(); //Contiene parte
+    }
+
+    public Tutorial GetById(int id)
+    {
+        return _learningCenterDbContext.Tutorials.Single(tutorial => tutorial.IsActive && tutorial.Id == id);
+    }
+
+    public bool Create(Tutorial tutorial)
     {
         try
         {
-            Tutorial tutorial = new Tutorial();
+            /*Tutorial tutorial = new Tutorial();
             tutorial.Name = name;
-            tutorial.IsActive = true;
+            tutorial.IsActive = true;*/
 
             _learningCenterDbContext.Tutorials.Add(tutorial);
             _learningCenterDbContext.SaveChanges();
@@ -45,18 +56,29 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
         }
     }
 
-    public bool Update(int id, string name)
+    public bool Update(int id, Tutorial input)
     {
         try
         {
-            var tutorial = _learningCenterDbContext.Tutorials.Find(id); //obtengo
+            using (var transaction = _learningCenterDbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    var tutorial = _learningCenterDbContext.Tutorials.Find(id); //obtengo
 
-            tutorial.Name = name; //Modifico
+                   tutorial.Name = input.Name; //Modifico
+                   tutorial.Description = input.Description; //Modifico
+                    _learningCenterDbContext.Tutorials.Update(tutorial); //modifco
 
-            _learningCenterDbContext.Tutorials.Update(tutorial); //modifco
-
-
-            _learningCenterDbContext.SaveChanges();
+                    _learningCenterDbContext.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+            
 
             return true;
         }

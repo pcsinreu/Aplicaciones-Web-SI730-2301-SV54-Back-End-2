@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearningCenter.API.Input;
 using LearningCenter.Domain;
 using LearningCenter.Infraestructure;
 using LearningCenter.Infraestructure.Models;
@@ -38,26 +39,65 @@ namespace LearningCenter.API.Controllers
 
             return _tutorialInfraestructura.GetAll();
         }
+        
+        
+       /* [HttpGet("{name}", Name = "GetByName")]
+        public List<Tutorial> Get(string name)
+        {
+            //TutorialOracleInfraestructure tutorialOracleInfraestructure = new TutorialOracleInfraestructure();
+            //return tutorialOracleInfraestructure.GetAll();
+
+            //TutorialSQLInfraestructure tutorialSqlInfraestructure = new TutorialSQLInfraestructure();
+            //return tutorialSqlInfraestructure.GetAll();
+
+            return _tutorialInfraestructura.GetByName(name);
+        }*/
 
         // GET: api/Tutorial/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Tutorial Get(int id)
         {
-            return "value";
+           return _tutorialInfraestructura.GetById(id);
         }
 
         // POST: api/Tutorial
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] TutorialInput input)
         {
-            _tutorialDomain.Create(value);
+            if (ModelState.IsValid){
+                
+                //Temporal
+                Tutorial tutorial = new Tutorial()
+                {
+                    Name = input.Name,
+                    Description = input.Description
+                };
+                
+                _tutorialDomain.Create(tutorial);
+            }
+            else
+            {
+                StatusCode(400);
+            }
         }
 
         // PUT: api/Tutorial/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] TutorialInput input)
         {
-            _tutorialDomain.Update(id, value);
+            if (ModelState.IsValid)
+            {
+                Tutorial tutorial = new Tutorial()
+                {
+                    Name = input.Name,
+                    Description = input.Description
+                };
+                _tutorialDomain.Update(id, tutorial);
+            }
+            else
+            {
+                StatusCode(400);
+            }
         }
 
         // DELETE: api/Tutorial/5

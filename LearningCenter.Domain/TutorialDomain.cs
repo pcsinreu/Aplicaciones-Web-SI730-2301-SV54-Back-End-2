@@ -19,17 +19,17 @@ public class TutorialDomain : ITutorialDomain
         throw new NotImplementedException();
     }
 
-    public bool Create(string name)
+    public bool Create(Tutorial input)
     {
-        if (name.Length < 3) throw new Exception("less than 3 char");
-        if (name.Length > 10) throw new Exception("more than 10 char");
+        if (input.Name.Length < 3) throw new Exception("less than 3 char");
+        if (input.Name.Length > 10) throw new Exception("more than 10 char");
         
-        return _tutorialInfraestructure.Create(name);
+        return _tutorialInfraestructure.Create(input);
     }
 
-    public bool Update(int id,string name)
+    public bool Update(int id,Tutorial tutorial)
     {
-        return _tutorialInfraestructure.Update(id, name);
+        return _tutorialInfraestructure.Update(id, tutorial);
     }
 
     public bool Delete(int id)

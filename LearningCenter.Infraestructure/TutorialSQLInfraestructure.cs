@@ -15,6 +15,11 @@ public class TutorialSQLInfraestructure : ITutorialInfraestructure
         return null;
     }
 
+    public Tutorial GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public bool Create(string name)
     {
         throw new NotImplementedException();

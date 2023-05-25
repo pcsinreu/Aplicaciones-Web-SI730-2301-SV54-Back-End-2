@@ -5,7 +5,10 @@ namespace LearningCenter.Infraestructure;
 public interface ITutorialInfraestructure
 {
     List<Tutorial> GetAll();
-    bool Create(string name);
-    bool Update(int id, string name);
+    List<Tutorial> GetByName(string name);
+
+    Tutorial GetById(int id);
+    bool Create(Tutorial input);
+    bool Update(int id, Tutorial input);
     bool Delete(int id);
 }
