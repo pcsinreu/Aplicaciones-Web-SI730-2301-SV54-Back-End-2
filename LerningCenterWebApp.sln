@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningCenter.Infraestruct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningCenter.Domain", "LearningCenter.Domain\LearningCenter.Domain.csproj", "{64F3CA44-3245-419E-A73C-ACFB34B6C438}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearningCenter.Domain.Test", "LearningCenter.Domain.Test\LearningCenter.Domain.Test.csproj", "{04384C87-CD65-4545-AF55-EF57345A8680}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{64F3CA44-3245-419E-A73C-ACFB34B6C438}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64F3CA44-3245-419E-A73C-ACFB34B6C438}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64F3CA44-3245-419E-A73C-ACFB34B6C438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04384C87-CD65-4545-AF55-EF57345A8680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04384C87-CD65-4545-AF55-EF57345A8680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04384C87-CD65-4545-AF55-EF57345A8680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04384C87-CD65-4545-AF55-EF57345A8680}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
