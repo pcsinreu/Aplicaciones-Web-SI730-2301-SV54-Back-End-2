@@ -13,10 +13,8 @@ public class UnitTest1
         
         //Act - exce
         int result = testeableClass.sum(numberA, numberB);
-
         
         //Assert
-        Assert.Equal(result,expected);
-        
+        Assert.Equal(result, expected);
     }
 }
