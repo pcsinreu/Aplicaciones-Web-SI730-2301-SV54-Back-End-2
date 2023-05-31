@@ -41,17 +41,12 @@ namespace LearningCenter.API.Controllers
         }
         
         
-       /* [HttpGet("{name}", Name = "GetByName")]
+        [HttpGet("GetBy/{name}")]
+
         public List<Tutorial> Get(string name)
         {
-            //TutorialOracleInfraestructure tutorialOracleInfraestructure = new TutorialOracleInfraestructure();
-            //return tutorialOracleInfraestructure.GetAll();
-
-            //TutorialSQLInfraestructure tutorialSqlInfraestructure = new TutorialSQLInfraestructure();
-            //return tutorialSqlInfraestructure.GetAll();
-
             return _tutorialInfraestructura.GetByName(name);
-        }*/
+        }
 
         // GET: api/Tutorial/5
         [HttpGet("{id}", Name = "Get")]
