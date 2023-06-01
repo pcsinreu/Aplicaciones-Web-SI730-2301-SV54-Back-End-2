@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using LearningCenter.API.Input;
+using LearningCenter.API.Response;
 using LearningCenter.Domain;
 using LearningCenter.Infraestructure;
 using LearningCenter.Infraestructure.Models;
@@ -18,26 +20,45 @@ namespace LearningCenter.API.Controllers
         //Inyeccion
         private ITutorialInfraestructure _tutorialInfraestructura;
         private ITutorialDomain _tutorialDomain;
+        private IMapper _mapper;
 
-        public TutorialController(ITutorialInfraestructure tutorialInfraestructura, ITutorialDomain tutorialDomain)
+        public TutorialController(ITutorialInfraestructure tutorialInfraestructura, ITutorialDomain tutorialDomain,IMapper mapper)
         {
             _tutorialInfraestructura = tutorialInfraestructura;
             _tutorialDomain = tutorialDomain;
+            _mapper = mapper;
         }
         
         
         
         // GET: api/Tutorial
         [HttpGet]
-        public async Task<List<Tutorial>> Get()
+        public async Task<List<TutorialResponse>> Get()
         {
             //TutorialOracleInfraestructure tutorialOracleInfraestructure = new TutorialOracleInfraestructure();
             //return tutorialOracleInfraestructure.GetAll();
 
             //TutorialSQLInfraestructure tutorialSqlInfraestructure = new TutorialSQLInfraestructure();
             //return tutorialSqlInfraestructure.GetAll();
+            
+            var result = await _tutorialInfraestructura.GetAll();
 
-            return await _tutorialInfraestructura.GetAll();
+           /* List<TutorialResponse> list = new List<TutorialResponse>();
+            foreach (var tutorial in result)
+            {
+                list.Add(new TutorialResponse()
+                {
+                    Name = tutorial.Name,
+                    Description = tutorial.Description,
+                    Id = tutorial.Id
+                });
+                
+            }*/
+
+           var list =  _mapper.Map<List<Tutorial>, List<TutorialResponse>>(result);
+
+            return list;
+
         }
         
         
@@ -62,12 +83,14 @@ namespace LearningCenter.API.Controllers
             if (ModelState.IsValid){
                 
                 //Temporal
-                Tutorial tutorial = new Tutorial()
+               /*Tutorial tutorial = new Tutorial()
                 {
                     Name = input.Name,
                     Description = input.Description,
                     MaxLenght = input.MaxLenght
-                };
+                };*/
+               
+               var tutorial =  _mapper.Map<TutorialInput, Tutorial>(input);
                 
                 await _tutorialDomain.CreateAsync(tutorial);
             }

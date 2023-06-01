@@ -1,3 +1,4 @@
+using LearningCenter.API.Mapper;
 using LearningCenter.Domain;
 using LearningCenter.Infraestructure;
 using LearningCenter.Infraestructure.Context;
@@ -20,6 +21,9 @@ builder.Services.AddScoped<ITutorialDomain, TutorialDomain>();
 var connectionString = builder.Configuration.GetConnectionString("learningCenterConnection");
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
 
+
+
+
 builder.Services.AddDbContext<LearningCenterDBContext>(
     dbContextOptions =>
     {
@@ -31,6 +35,11 @@ builder.Services.AddDbContext<LearningCenterDBContext>(
                 errorNumbersToAdd: null)
         );
     });
+
+builder.Services.AddAutoMapper(
+    typeof(ModelToResponse),
+    typeof(InputToModel)
+    );
 
 var app = builder.Build();
 
