@@ -1,5 +1,6 @@
 using LearningCenter.Infraestructure.Context;
 using LearningCenter.Infraestructure.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LearningCenter.Infraestructure;
 
@@ -13,7 +14,7 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
         _learningCenterDbContext = learningCenterDbContext;
     }
     
-    public List<Tutorial> GetAll()
+    public  async Task<List<Tutorial>> GetAll()
     {
         //Conecta BBDD
         List<string> list = new List<string>();
@@ -23,7 +24,8 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
         //LearningCenterDBContext;
         //SecurityDB;
 
-        return _learningCenterDbContext.Tutorials.Where(tutorial => tutorial.IsActive).ToList();
+        //return  _learningCenterDbContext.Tutorials.Where(tutorial => tutorial.IsActive).ToList();
+        return await _learningCenterDbContext.Tutorials.Where(tutorial => tutorial.IsActive).ToListAsync();
 
     }
 
@@ -38,7 +40,7 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
         return _learningCenterDbContext.Tutorials.Single(tutorial => tutorial.IsActive && tutorial.Id == id);
     }
 
-    public bool Create(Tutorial tutorial)
+    public async Task<bool> CreateAsync(Tutorial tutorial)
     {
         try
         {
@@ -46,12 +48,13 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
             tutorial.Name = name;
             tutorial.IsActive = true;*/
 
-            _learningCenterDbContext.Tutorials.Add(tutorial);
-            _learningCenterDbContext.SaveChanges();
+            await _learningCenterDbContext.Tutorials.AddAsync(tutorial);
+            await _learningCenterDbContext.SaveChangesAsync();
             return true;
         }
         catch (Exception exception)
         {
+            throw ;
             return false;
         }
     }

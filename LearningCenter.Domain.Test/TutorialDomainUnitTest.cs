@@ -15,15 +15,15 @@ public class TutorialDomainUnitTest
             Name = "Tutorual 1"
         };
         var mockTutorialInfraestructure = new Mock<ITutorialInfraestructure>();
-        mockTutorialInfraestructure.Setup(t => t.Create(tutorial)).Returns(true);
+        mockTutorialInfraestructure.Setup(t => t.CreateAsync(tutorial)).ReturnsAsync(true);
         TutorialDomain tutorialDomain = new TutorialDomain(mockTutorialInfraestructure.Object);
         
         
         //Act
-       var returnValue = tutorialDomain.Create(tutorial);
+       var returnValue = tutorialDomain.CreateAsync(tutorial);
 
        //Assert
-       Assert.True(returnValue);
+       Assert.True(returnValue.Result);
     }
     
     [Fact]
@@ -35,15 +35,15 @@ public class TutorialDomainUnitTest
             Name = "Tutorual 1"
         };
         var mockTutorialInfraestructure = new Mock<ITutorialInfraestructure>();
-        mockTutorialInfraestructure.Setup(t => t.Create(tutorial)).Returns(false);
+        mockTutorialInfraestructure.Setup(t => t.CreateAsync(tutorial)).ReturnsAsync(false);
         TutorialDomain tutorialDomain = new TutorialDomain(mockTutorialInfraestructure.Object);
         
         
         //Act
-        var returnValue = tutorialDomain.Create(tutorial);
+        var returnValue = tutorialDomain.CreateAsync(tutorial);
 
         //Assert
-        Assert.False(returnValue);
+        Assert.False(returnValue.Result);
     }
     
     
@@ -56,16 +56,16 @@ public class TutorialDomainUnitTest
             Name = "Te"
         };
         var mockTutorialInfraestructure = new Mock<ITutorialInfraestructure>();
-        mockTutorialInfraestructure.Setup(t => t.Create(tutorial)).Returns(false);
+        mockTutorialInfraestructure.Setup(t => t.CreateAsync(tutorial)).ReturnsAsync(false);
         TutorialDomain tutorialDomain = new TutorialDomain(mockTutorialInfraestructure.Object);
         
         
         //Act
         //var returnValue = tutorialDomain.Create(tutorial);
-        var ex = Assert.Throws<Exception>(() => tutorialDomain.Create(tutorial) );
+        var ex = Assert.ThrowsAsync<Exception>(() => tutorialDomain.CreateAsync(tutorial) );
 
         //Assert
-        Assert.Equal("less than 3 char",ex.Message);
+        Assert.Equal("less than 3 char",ex.Result.Message);
     }
     
 }

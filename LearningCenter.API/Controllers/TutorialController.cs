@@ -29,7 +29,7 @@ namespace LearningCenter.API.Controllers
         
         // GET: api/Tutorial
         [HttpGet]
-        public List<Tutorial> Get()
+        public async Task<List<Tutorial>> Get()
         {
             //TutorialOracleInfraestructure tutorialOracleInfraestructure = new TutorialOracleInfraestructure();
             //return tutorialOracleInfraestructure.GetAll();
@@ -37,7 +37,7 @@ namespace LearningCenter.API.Controllers
             //TutorialSQLInfraestructure tutorialSqlInfraestructure = new TutorialSQLInfraestructure();
             //return tutorialSqlInfraestructure.GetAll();
 
-            return _tutorialInfraestructura.GetAll();
+            return await _tutorialInfraestructura.GetAll();
         }
         
         
@@ -57,7 +57,7 @@ namespace LearningCenter.API.Controllers
 
         // POST: api/Tutorial
         [HttpPost]
-        public void Post([FromBody] TutorialInput input)
+        public async Task PostAsync([FromBody] TutorialInput input)
         {
             if (ModelState.IsValid){
                 
@@ -65,10 +65,11 @@ namespace LearningCenter.API.Controllers
                 Tutorial tutorial = new Tutorial()
                 {
                     Name = input.Name,
-                    Description = input.Description
+                    Description = input.Description,
+                    MaxLenght = input.MaxLenght
                 };
                 
-                _tutorialDomain.Create(tutorial);
+                await _tutorialDomain.CreateAsync(tutorial);
             }
             else
             {

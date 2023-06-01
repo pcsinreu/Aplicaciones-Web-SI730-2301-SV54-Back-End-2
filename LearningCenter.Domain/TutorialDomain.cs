@@ -19,12 +19,12 @@ public class TutorialDomain : ITutorialDomain
         throw new NotImplementedException();
     }
 
-    public bool Create(Tutorial input)
+    public async Task<bool> CreateAsync(Tutorial input)
     {
         if (input.Name.Length < 3) throw new Exception("less than 3 char");
         if (input.Name.Length > 10) throw new Exception("more than 10 char");
         
-        return _tutorialInfraestructure.Create(input);
+        return await _tutorialInfraestructure.CreateAsync(input);
     }
 
     public bool Update(int id,Tutorial tutorial)
