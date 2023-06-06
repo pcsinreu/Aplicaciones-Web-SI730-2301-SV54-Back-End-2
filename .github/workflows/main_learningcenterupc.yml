@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'learningcenterupc'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_55EA77BC5B9E448F8FF44FE26F6CA7F8 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C77DA68D233444E8BF1DA29BA6A508A2 }}
           package: .
