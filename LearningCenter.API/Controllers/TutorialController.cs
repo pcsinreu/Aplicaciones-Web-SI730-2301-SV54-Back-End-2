@@ -80,27 +80,17 @@ namespace LearningCenter.API.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] TutorialInput input)
         {
-            if (ModelState.IsValid){
+            if (ModelState.IsValid)
+            {
+                var tutorial = _mapper.Map<TutorialInput, Tutorial>(input);
+                var result = await _tutorialDomain.CreateAsync(tutorial);
                 
-                //Temporal
-               /*Tutorial tutorial = new Tutorial()
-                {
-                    Name = input.Name,
-                    Description = input.Description,
-                    MaxLenght = input.MaxLenght
-                };*/
-               
-               var tutorial =  _mapper.Map<TutorialInput, Tutorial>(input);
-                
-                await _tutorialDomain.CreateAsync(tutorial);
-
+                return  result ? StatusCode(201) : StatusCode(500);
             }
             else
             {
-                StatusCode(400);
+               return StatusCode(400);
             }
-            
-            return Ok();
         }
 
         // PUT: api/Tutorial/5
