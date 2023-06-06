@@ -10,6 +10,7 @@ public class ModelToResponse : Profile
     public ModelToResponse()
     {
         CreateMap<Tutorial, TutorialResponse>();
+        CreateMap<User, UserResponse>();
         //CreateMap<Category, CategoryReponse>();
     }
     

@@ -1,13 +1,9 @@
 namespace LearningCenter.Infraestructure.Models;
 
-public class Tutorial
+public class Tutorial : BaseModel
 {
-    public int Id { get; set; }
     public string Name { get; set; }
-    
     public string Description { get; set; }
-    
-    public  bool IsActive { get; set; }
-    
+
     public int  MaxLenght  { get; set; }
 }
