@@ -18,6 +18,9 @@ builder.Services.AddScoped<ITutorialInfraestructure, TutorialOracleInfraestructu
 builder.Services.AddScoped<ITutorialDomain, TutorialDomain>();
 builder.Services.AddScoped<IUserInfraestructure, UserInfraestructure>();
 builder.Services.AddScoped<IUserDomain, UserDomain>();
+builder.Services.AddScoped<IEncryptDomain, EncryptDomain>();
+builder.Services.AddScoped<ITokenDomain, TokenDomain>();
+
 
 //Conexion a MySQL 
 var connectionString = builder.Configuration.GetConnectionString("learningCenterConnection");

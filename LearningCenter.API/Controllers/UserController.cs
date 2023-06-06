@@ -33,17 +33,14 @@ namespace LearningCenter.API.Controllers
             try
             {
                 var user = _mapper.Map<UserInput, User>(userInput);
-
-
-                var isValid = await _userDomain.Login(user);
-
-                if (isValid)
-                    return Ok();
-                else
-                    return NotFound();
+                
+                var jwt = await _userDomain.Login(user);
+                
+                return Ok(jwt);
             }
             catch (Exception ex)
             {
+                throw;
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error al procesar");
             }
         }

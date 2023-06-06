@@ -8,6 +8,14 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LearningCenter.Infraestructure\LearningCenter.Infraestructure.csproj" />
+      <ProjectReference Include="..\LearningCenter.Shared\LearningCenter.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="IdentityModel" Version="6.1.0" />
+      <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.30.1" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.30.1" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.1" />
     </ItemGroup>
 
 </Project>

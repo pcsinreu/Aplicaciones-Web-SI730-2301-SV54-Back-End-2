@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using LearningCenter.Infraestructure.Context;
 using LearningCenter.Infraestructure.Models;
 using Microsoft.EntityFrameworkCore;
@@ -12,20 +13,12 @@ public class UserInfraestructure : IUserInfraestructure
     {
         _learningCenterDbContext = learningCenterDbContext;
     }
-    
-    public async Task<bool> Login(User user)
+
+    public async Task<User> GetByUsername(string username)
     {
-        try
-        {
-           var foundUser = await  _learningCenterDbContext.Users.Where(u =>
-                u.Username == user.Username && u.Password == user.Password).ToListAsync();
-            return foundUser.Count() == 1 ? true : false;
-        }
-        catch (Exception ex)
-        {
-            throw;
-        }
+        return await _learningCenterDbContext.Users.SingleAsync(u => u.Username == username);
     }
+    
 
     public async Task<int> Signup(User user)
     {

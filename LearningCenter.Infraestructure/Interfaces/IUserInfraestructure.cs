@@ -4,6 +4,6 @@ namespace LearningCenter.Infraestructure;
 
 public interface IUserInfraestructure
 {
-    Task<bool> Login(User user);
+    Task<User> GetByUsername(string username);
     Task<int> Signup(User user);
 }
