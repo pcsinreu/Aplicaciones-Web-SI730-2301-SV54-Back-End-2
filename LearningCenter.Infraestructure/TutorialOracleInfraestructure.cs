@@ -48,6 +48,7 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
             tutorial.Name = name;
             tutorial.IsActive = true;*/
 
+            tutorial.IsActive = true;
             await _learningCenterDbContext.Tutorials.AddAsync(tutorial);
             await _learningCenterDbContext.SaveChangesAsync();
             return true;
