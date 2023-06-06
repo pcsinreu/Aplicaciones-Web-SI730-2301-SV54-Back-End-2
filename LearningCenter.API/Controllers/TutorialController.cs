@@ -94,12 +94,13 @@ namespace LearningCenter.API.Controllers
                 
                 await _tutorialDomain.CreateAsync(tutorial);
 
-                return Ok();
             }
             else
             {
                 StatusCode(400);
             }
+            
+            return Ok();
         }
 
         // PUT: api/Tutorial/5
