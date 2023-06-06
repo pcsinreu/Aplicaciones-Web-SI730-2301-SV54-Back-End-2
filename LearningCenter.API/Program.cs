@@ -21,7 +21,10 @@ builder.Services.AddScoped<ITutorialDomain, TutorialDomain>();
 var connectionString = builder.Configuration.GetConnectionString("learningCenterConnection");
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
 
-
+builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+{
+    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 
 
 builder.Services.AddDbContext<LearningCenterDBContext>(
