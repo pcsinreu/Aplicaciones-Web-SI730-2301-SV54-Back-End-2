@@ -78,7 +78,7 @@ namespace LearningCenter.API.Controllers
 
         // POST: api/Tutorial
         [HttpPost]
-        public async Task PostAsync([FromBody] TutorialInput input)
+        public async Task<IActionResult> PostAsync([FromBody] TutorialInput input)
         {
             if (ModelState.IsValid){
                 
@@ -93,6 +93,8 @@ namespace LearningCenter.API.Controllers
                var tutorial =  _mapper.Map<TutorialInput, Tutorial>(input);
                 
                 await _tutorialDomain.CreateAsync(tutorial);
+
+                return Ok();
             }
             else
             {
