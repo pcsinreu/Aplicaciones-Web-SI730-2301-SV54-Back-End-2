@@ -21,7 +21,7 @@ public class LearningCenterDBContext : DbContext
         if (!optionsBuilder.IsConfigured)
         {
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
-            optionsBuilder.UseMySql("Server=sql10.freemysqlhosting.net,3306;Uid=sql10623948;Pwd=KKhtn5C7sy;Database=sql10623948;", serverVersion);
+            optionsBuilder.UseMySql("Server=sql10.freemysqlhosting.net,3306;Uid=sql10624174;Pwd=J86HkkrwBE;Database=sql10624174", serverVersion);
         }
     }
     

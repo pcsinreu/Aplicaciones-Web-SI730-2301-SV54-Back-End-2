@@ -18,7 +18,7 @@ public class UserDomain : IUserDomain
     public async Task<string> Login(User user)
     {
         var foundUser = await _userInfraestructure.GetByUsername(user.Username);
-
+        
         if (_encryptDomain.Ecnrypt(user.Password) == foundUser.Password)
         {
             return _tokenDomain.GenerateJwt(foundUser.Username);
