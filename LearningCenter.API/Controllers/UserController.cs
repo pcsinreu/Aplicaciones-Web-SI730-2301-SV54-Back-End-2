@@ -6,11 +6,13 @@ using AutoMapper;
 using LearningCenter.API.Input;
 using LearningCenter.Domain;
 using LearningCenter.Infraestructure.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearningCenter.API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -18,14 +20,15 @@ namespace LearningCenter.API.Controllers
         private IUserDomain _userDomain;
         private IMapper _mapper;
 
-        public UserController(IUserDomain userDomain,IMapper mapper)
+        public UserController(IUserDomain userDomain, IMapper mapper)
         {
             _userDomain = userDomain;
             _mapper = mapper;
         }
-        
-        
+
+
         // GET: api/User
+        [AllowAnonymous]
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] UserInput userInput)
@@ -33,9 +36,9 @@ namespace LearningCenter.API.Controllers
             try
             {
                 var user = _mapper.Map<UserInput, User>(userInput);
-                
+
                 var jwt = await _userDomain.Login(user);
-                
+
                 return Ok(jwt);
             }
             catch (Exception ex)
@@ -47,6 +50,7 @@ namespace LearningCenter.API.Controllers
 
 
         // POST: api/User
+        [Filter.Authorize("admin")]
         [HttpPost(Name = "Signup")]
         public async Task<IActionResult> Signup([FromBody] UserInput userInput)
         {

@@ -1,7 +1,9 @@
 using LearningCenter.API.Mapper;
+using LearningCenter.API.Middleware;
 using LearningCenter.Domain;
 using LearningCenter.Infraestructure;
 using LearningCenter.Infraestructure.Context;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +32,15 @@ builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
     builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
+
+
+//jwt
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+});
 
 
 builder.Services.AddDbContext<LearningCenterDBContext>(
@@ -64,6 +75,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();
 

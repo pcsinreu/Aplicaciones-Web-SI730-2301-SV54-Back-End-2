@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using LearningCenter.API.Filter;
 using LearningCenter.API.Input;
 using LearningCenter.API.Response;
 using LearningCenter.Domain;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LearningCenter.API.Controllers
 {
+  
     [Route("api/[controller]")]
     [ApiController]
     public class TutorialController : ControllerBase
@@ -29,9 +31,8 @@ namespace LearningCenter.API.Controllers
             _mapper = mapper;
         }
         
-        
-        
         // GET: api/Tutorial
+        [Authorize("admin")]
         [HttpGet]
         public async Task<List<TutorialResponse>> Get()
         {
@@ -61,7 +62,7 @@ namespace LearningCenter.API.Controllers
 
         }
         
-        
+        [Authorize("manager")]
         [HttpGet("GetBy/{name}")]
 
         public List<Tutorial> Get(string name)
@@ -70,6 +71,8 @@ namespace LearningCenter.API.Controllers
         }
 
         // GET: api/Tutorial/5
+       
+        [Authorize("manager,admin")]
         [HttpGet("{id}", Name = "Get")]
         public Tutorial Get(int id)
         {
@@ -77,6 +80,7 @@ namespace LearningCenter.API.Controllers
         }
 
         // POST: api/Tutorial
+        [Authorize("account")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] TutorialInput input)
         {
@@ -95,6 +99,7 @@ namespace LearningCenter.API.Controllers
 
         // PUT: api/Tutorial/5
         [HttpPut("{id}")]
+        
         public void Put(int id, [FromBody] TutorialInput input)
         {
             if (ModelState.IsValid)
@@ -113,6 +118,8 @@ namespace LearningCenter.API.Controllers
         }
 
         // DELETE: api/Tutorial/5
+        
+        [Authorize("superadmin")]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

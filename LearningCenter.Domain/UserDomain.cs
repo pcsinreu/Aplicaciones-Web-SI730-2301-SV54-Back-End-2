@@ -32,4 +32,9 @@ public class UserDomain : IUserDomain
         user.Password = _encryptDomain.Ecnrypt(user.Password);
         return await _userInfraestructure.Signup(user);
     }
+
+    public async Task<User> GetByUsername(string username)
+    {
+        return  await _userInfraestructure.GetByUsername(username);
+    }
 }
