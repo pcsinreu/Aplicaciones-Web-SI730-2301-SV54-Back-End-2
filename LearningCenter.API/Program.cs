@@ -22,6 +22,7 @@ builder.Services.AddScoped<IUserInfraestructure, UserInfraestructure>();
 builder.Services.AddScoped<IUserDomain, UserDomain>();
 builder.Services.AddScoped<IEncryptDomain, EncryptDomain>();
 builder.Services.AddScoped<ITokenDomain, TokenDomain>();
+builder.Services.AddScoped<IPostInfraestructure, PostInfraestructure>();
 
 
 //Conexion a MySQL 

@@ -13,6 +13,7 @@ public class InputToModel: Profile
     {
         CreateMap<TutorialInput, Tutorial>();
         CreateMap<UserInput, User>();
+        CreateMap<PostInput, Post>();
         //CreateMap<Category, CategoryReponse>();
     }
 

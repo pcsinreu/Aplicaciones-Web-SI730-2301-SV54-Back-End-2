@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LearningCenter.API.Controllers
 {
   
+    [Authorize("admin,account")]
     [Route("api/[controller]")]
     [ApiController]
     public class TutorialController : ControllerBase
@@ -62,7 +63,6 @@ namespace LearningCenter.API.Controllers
 
         }
         
-        [Authorize("manager")]
         [HttpGet("GetBy/{name}")]
 
         public List<Tutorial> Get(string name)
@@ -72,7 +72,6 @@ namespace LearningCenter.API.Controllers
 
         // GET: api/Tutorial/5
        
-        [Authorize("manager,admin")]
         [HttpGet("{id}", Name = "Get")]
         public Tutorial Get(int id)
         {
@@ -80,7 +79,6 @@ namespace LearningCenter.API.Controllers
         }
 
         // POST: api/Tutorial
-        [Authorize("account")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] TutorialInput input)
         {
@@ -98,8 +96,8 @@ namespace LearningCenter.API.Controllers
         }
 
         // PUT: api/Tutorial/5
+
         [HttpPut("{id}")]
-        
         public void Put(int id, [FromBody] TutorialInput input)
         {
             if (ModelState.IsValid)
@@ -119,7 +117,6 @@ namespace LearningCenter.API.Controllers
 
         // DELETE: api/Tutorial/5
         
-        [Authorize("superadmin")]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

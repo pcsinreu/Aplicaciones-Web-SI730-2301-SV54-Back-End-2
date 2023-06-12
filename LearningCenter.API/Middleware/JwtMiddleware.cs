@@ -19,6 +19,7 @@ public class JwtMiddleware
     /// <param name="userDomain"></param>
     public async Task Invoke(HttpContext context, ITokenDomain tokenDomain, IUserDomain userDomain)
     {
+        //Autenticación
 
         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
         var username = tokenDomain.ValidateJwt(token);

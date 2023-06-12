@@ -16,12 +16,13 @@ public class LearningCenterDBContext : DbContext
     public DbSet<Tutorial> Tutorials { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Post> Posts { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
         {
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
-            optionsBuilder.UseMySql("Server=sql10.freemysqlhosting.net,3306;Uid=sql10624174;Pwd=J86HkkrwBE;Database=sql10624174", serverVersion);
+            optionsBuilder.UseMySql("Server=127.0.0.1,3306;Uid=root;Pwd=LaUpc123*;Database=LearningCenterDB;", serverVersion);
         }
     }
     
@@ -47,6 +48,12 @@ public class LearningCenterDBContext : DbContext
         builder.Entity<User>().Property(c => c.Username).IsRequired().HasMaxLength(60);
         builder.Entity<User>().Property(c => c.Password).IsRequired().HasMaxLength(120);
         builder.Entity<User>().Property(c => c.IsActive).IsRequired().HasDefaultValue(true);
+        
+        
+        builder.Entity<Post>().ToTable("Posts");
+        builder.Entity<Post>().HasKey(p => p.Id);
+        builder.Entity<Post>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Post>().Property(c => c.Title).IsRequired().HasMaxLength(60);
 
     }
 }

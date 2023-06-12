@@ -50,8 +50,9 @@ namespace LearningCenter.API.Controllers
 
 
         // POST: api/User
-        [Filter.Authorize("admin")]
-        [HttpPost(Name = "Signup")]
+        ///[Filter.Authorize("admin")]
+        [HttpPost]
+        [Route("Signup")]
         public async Task<IActionResult> Signup([FromBody] UserInput userInput)
         {
             
