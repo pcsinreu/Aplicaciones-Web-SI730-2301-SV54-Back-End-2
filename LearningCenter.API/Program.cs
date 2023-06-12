@@ -29,10 +29,10 @@ builder.Services.AddScoped<IPostInfraestructure, PostInfraestructure>();
 var connectionString = builder.Configuration.GetConnectionString("learningCenterConnection");
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
 
-builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+/*builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
-    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
-}));
+    builder.WithOrigins("*.*").AllowAnyMethod().AllowAnyHeader();
+}));*/
 
 
 //jwt
@@ -76,6 +76,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//Cors
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseMiddleware<JwtMiddleware>();
 

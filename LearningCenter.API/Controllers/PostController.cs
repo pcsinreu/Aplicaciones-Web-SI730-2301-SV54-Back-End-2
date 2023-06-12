@@ -48,7 +48,6 @@ namespace LearningCenter.API.Controllers
         [HttpPost("{id}",Name = "CreatePost")]
         public async Task<IActionResult> Post([FromBody] PostInput postInput)
         {
-            
             var post = _mapper.Map<PostInput, Post>(postInput);
             await _postInfraestructure.CreateAsync(post);
             
