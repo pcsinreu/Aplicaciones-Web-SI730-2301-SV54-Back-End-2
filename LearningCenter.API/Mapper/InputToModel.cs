@@ -12,6 +12,9 @@ public class InputToModel: Profile
     public InputToModel()
     {
         CreateMap<TutorialInput, Tutorial>();
+        
+        
+        CreateMap<UserLoginInput, User>();
         CreateMap<UserInput, User>();
         CreateMap<PostInput, Post>();
         //CreateMap<Category, CategoryReponse>();

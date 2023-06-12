@@ -31,11 +31,11 @@ namespace LearningCenter.API.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login([FromBody] UserInput userInput)
+        public async Task<IActionResult> Login([FromBody] UserLoginInput userInput)
         {
             try
             {
-                var user = _mapper.Map<UserInput, User>(userInput);
+                var user = _mapper.Map<UserLoginInput, User>(userInput);
 
                 var jwt = await _userDomain.Login(user);
 
