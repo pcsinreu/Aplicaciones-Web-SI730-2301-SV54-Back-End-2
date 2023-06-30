@@ -7,4 +7,6 @@ public class TutorialResponse
     public string Name { get; set; }
     
     public string Description { get; set; }
+    
+    public  CategoryResponse CategoryResponse { get; set; }
 }

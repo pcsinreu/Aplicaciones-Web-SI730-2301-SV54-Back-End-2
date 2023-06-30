@@ -11,4 +11,5 @@ public interface ITutorialInfraestructure
     Task<bool> CreateAsync(Tutorial input);
     bool Update(int id, Tutorial input);
     bool Delete(int id);
+    Category GetCategoryByDescription(string description);
 }

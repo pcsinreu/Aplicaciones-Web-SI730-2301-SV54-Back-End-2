@@ -109,4 +109,10 @@ public class TutorialOracleInfraestructure: ITutorialInfraestructure
 
         return true;
     }
+
+    public Category GetCategoryByDescription(string description)
+    {
+        return _learningCenterDbContext.Categories.Where(ctegory => ctegory.Description == description).SingleOrDefault();
+    }
+    
 }

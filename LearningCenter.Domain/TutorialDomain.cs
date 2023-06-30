@@ -23,6 +23,12 @@ public class TutorialDomain : ITutorialDomain
     {
         if (input.Name.Length < 3) throw new Exception("less than 3 char");
         if (input.Name.Length > 10) throw new Exception("more than 10 char");
+
+        Category category = _tutorialInfraestructure.GetCategoryByDescription(input.Category.Description);
+        if ( category != null)
+        {
+            input.Category = category;
+        }
         
         return await _tutorialInfraestructure.CreateAsync(input);
     }

@@ -6,4 +6,6 @@ public class Tutorial : BaseModel
     public string Description { get; set; }
 
     public int  MaxLenght  { get; set; }
+    
+    public Category Category { get; set; }
 }

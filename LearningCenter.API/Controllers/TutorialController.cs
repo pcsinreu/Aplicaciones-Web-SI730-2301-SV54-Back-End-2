@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LearningCenter.API.Controllers
 {
   
-    [Authorize("admin,account")]
+    //[Authorize("admin,account")]
     [Route("api/[controller]")]
     [ApiController]
     public class TutorialController : ControllerBase
